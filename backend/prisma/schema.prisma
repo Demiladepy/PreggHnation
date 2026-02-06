@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String?
+  dueDate    DateTime?
+  weekNumber Int?
+  createdAt  DateTime @default(now())
+  moods      MoodEntry[]
+  messages   ChatMessage[]
+  screenings EPDSScreening[]
+}
+
+model MoodEntry {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  score     Int      // 1-5 scale
+  emotions  String   // JSON array of selected emotions
+  notes     String?
+  aiInsight String?  // AI-generated reflection
+  createdAt DateTime @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  role      String   // "user" or "assistant"
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model EPDSScreening {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  totalScore Int      // 0-30 total score
+  itemScores String   // JSON array of 10 item scores (0-3 each)
+  riskLevel  String   // "low", "moderate", "high"
+  aiInsight  String?  // AI-generated interpretation
+  createdAt  DateTime @default(now())
+}
