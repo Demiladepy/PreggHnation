@@ -191,23 +191,7 @@ bloompath/
 - Show crisis resources are always visible in footer
 - Highlight EPDS score integration in insights dashboard
 
-## Why a Backend is Required
 
-**Security & Privacy:**
-- **API Key Protection**: Anthropic API keys must never be exposed in frontend code. The backend keeps keys secure server-side.
-- **Data Privacy**: Sensitive mental health data is stored securely in your database, not exposed to client-side code.
-- **CORS Protection**: Backend controls which origins can access the API.
-
-**Functionality:**
-- **AI Processing**: All Claude API calls happen server-side for security and rate limiting.
-- **Data Persistence**: Chat history, mood entries, and EPDS screenings persist across sessions.
-- **Analytics**: Server-side calculations for insights, trends, and EPDS integration.
-- **Crisis Detection**: Server-side keyword detection ensures consistent safety protocols.
-
-**Alternative (Not Recommended):**
-- A frontend-only version would require exposing API keys (security risk)
-- Data would be lost on browser clear (no persistence)
-- No server-side validation or safety checks
 
 ## Important Notes
 
@@ -215,9 +199,6 @@ bloompath/
 - For medical concerns, always consult a healthcare provider
 - If experiencing severe distress, please contact a crisis helpline
 
-## Hackathon Info
-
-Built for [Your Hackathon Name] - February 2026
 
 **Theme**: AI for Global Health Impact
 
