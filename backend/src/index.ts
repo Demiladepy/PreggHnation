@@ -15,9 +15,16 @@ const app = express()
 const prisma = new PrismaClient()
 const PORT = process.env.PORT || 3001
 
-// Middleware
+// Middleware – allow frontend origins (local + production)
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://pregg-hnation.vercel.app'
+]
+const frontendUrl = process.env.FRONTEND_URL
+if (frontendUrl) allowedOrigins.push(frontendUrl)
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: allowedOrigins,
   credentials: true
 }))
 app.use(express.json())
