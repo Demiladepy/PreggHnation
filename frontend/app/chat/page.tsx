@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { sendMessage, getChatHistory, ChatMessage } from '@/lib/api'
+import Logo from '@/components/Logo'
 
 const QUICK_REPLIES = [
   "I'm feeling anxious today",
@@ -120,14 +121,12 @@ export default function ChatPage() {
   return (
     <div className="h-[calc(100vh-4rem)] flex flex-col">
       {/* Chat Header */}
-      <div className="bg-white border-b border-gray-100 px-4 py-3">
-        <div className="max-w-3xl mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-bloom-400 to-bloom-600 flex items-center justify-center text-white text-xl">
-            🌸
-          </div>
+      <div className="bg-white/95 backdrop-blur-sm border-b border-earth-100 px-4 py-4 shadow-soft">
+        <div className="max-w-3xl mx-auto flex items-center gap-4">
+          <Logo size="md" />
           <div>
-            <h1 className="font-semibold text-gray-800">BloomPath</h1>
-            <p className="text-xs text-gray-500">Your pregnancy wellness companion</p>
+            <h1 className="font-bold text-earth-700">BloomPath</h1>
+            <p className="text-xs text-earth-500">Your pregnancy wellness companion</p>
           </div>
         </div>
       </div>
@@ -141,15 +140,15 @@ export default function ChatPage() {
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] md:max-w-[75%] rounded-2xl px-4 py-3 ${
+                className={`max-w-[85%] md:max-w-[75%] rounded-2xl px-5 py-4 ${
                   message.role === 'user'
-                    ? 'bg-bloom-500 text-white rounded-br-md'
-                    : 'bg-white shadow-md rounded-bl-md'
+                    ? 'bg-sage-400 text-white rounded-br-md shadow-soft'
+                    : 'bg-cream-50 shadow-soft rounded-bl-md border border-earth-100'
                 }`}
               >
                 <p className="whitespace-pre-wrap text-sm md:text-base">{message.content}</p>
                 <p className={`text-xs mt-2 ${
-                  message.role === 'user' ? 'text-bloom-200' : 'text-gray-400'
+                  message.role === 'user' ? 'text-white/70' : 'text-earth-400'
                 }`}>
                   {new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
@@ -159,11 +158,11 @@ export default function ChatPage() {
 
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-white shadow-md rounded-2xl rounded-bl-md px-4 py-3">
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-bloom-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <div className="w-2 h-2 bg-bloom-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <div className="w-2 h-2 bg-bloom-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div className="bg-cream-50 shadow-soft rounded-2xl rounded-bl-md px-5 py-4 border border-earth-100">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             </div>
@@ -175,16 +174,16 @@ export default function ChatPage() {
 
       {/* Quick Replies */}
       {messages.length <= 2 && (
-        <div className="px-4 py-2 bg-gray-50 border-t border-gray-100">
+        <div className="px-4 py-3 bg-cream-50 border-t border-earth-100">
           <div className="max-w-3xl mx-auto">
-            <p className="text-xs text-gray-500 mb-2">Quick replies:</p>
+            <p className="text-xs text-earth-600 mb-3 font-medium">Quick replies:</p>
             <div className="flex flex-wrap gap-2">
               {QUICK_REPLIES.map((reply, index) => (
                 <button
                   key={index}
                   onClick={() => handleSend(reply)}
                   disabled={isLoading}
-                  className="text-sm px-3 py-1.5 bg-white border border-gray-200 rounded-full hover:border-bloom-300 hover:bg-bloom-50 transition-smooth disabled:opacity-50"
+                  className="text-sm px-4 py-2 bg-white border-2 border-earth-100 rounded-full hover:border-sage-300 hover:bg-sage-50 transition-smooth disabled:opacity-50 shadow-soft text-earth-700 font-medium"
                 >
                   {reply}
                 </button>
@@ -195,29 +194,29 @@ export default function ChatPage() {
       )}
 
       {/* Input Area */}
-      <div className="bg-white border-t border-gray-100 p-4">
+      <div className="bg-white border-t border-earth-100 p-4 shadow-medium">
         <div className="max-w-3xl mx-auto">
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Share what's on your mind..."
-              className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-bloom-400 focus:ring-2 focus:ring-bloom-200 outline-none resize-none transition-smooth"
+              className="flex-1 px-5 py-4 rounded-2xl border-2 border-earth-100 focus:border-sage-400 focus:ring-2 focus:ring-sage-200 outline-none resize-none transition-smooth bg-cream-50 text-earth-700"
               rows={1}
               disabled={isLoading}
             />
             <button
               onClick={() => handleSend()}
               disabled={!input.trim() || isLoading}
-              className="px-4 py-3 bg-bloom-500 text-white rounded-xl hover:bg-bloom-600 transition-smooth disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-4 bg-sage-400 text-white rounded-2xl hover:bg-sage-500 transition-smooth disabled:opacity-50 disabled:cursor-not-allowed shadow-medium"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
               </svg>
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-2 text-center">
+          <p className="text-xs text-earth-500 mt-3 text-center">
             BloomPath is here to support, not replace professional care. If you need medical advice, please consult your healthcare provider.
           </p>
         </div>

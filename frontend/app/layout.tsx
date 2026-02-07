@@ -26,10 +26,10 @@ export default function RootLayout({
           </main>
           <footer className="mt-auto">
             <CrisisResources variant="banner" />
-            <div className="bg-gray-50 border-t border-gray-200 px-4 py-4">
-              <div className="max-w-4xl mx-auto text-center text-sm text-gray-500">
-                <p>BloomPath is designed to support, not replace, professional mental health care.</p>
-                <p className="mt-1">If you&apos;re struggling, please reach out to your healthcare provider.</p>
+            <div className="bg-cream-50 border-t border-earth-100 px-4 py-6">
+              <div className="max-w-6xl mx-auto text-center text-sm text-earth-600">
+                <p className="font-medium">BloomPath is designed to support, not replace, professional mental health care.</p>
+                <p className="mt-2">If you&apos;re struggling, please reach out to your healthcare provider.</p>
               </div>
             </div>
           </footer>

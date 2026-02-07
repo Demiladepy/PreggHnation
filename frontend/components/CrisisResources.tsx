@@ -35,14 +35,14 @@ export default function CrisisResources({ variant = 'full', showToggle = false }
 
   if (variant === 'banner') {
     return (
-      <div className="bg-amber-50 border-t border-amber-200 px-4 py-2">
-        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
-          <span className="text-amber-800 font-medium">Need immediate support?</span>
-          <a href="tel:988" className="text-amber-700 hover:text-amber-900">
+      <div className="bg-peach-50 border-t border-peach-200 px-4 py-3">
+        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
+          <span className="text-earth-700 font-semibold">Need immediate support?</span>
+          <a href="tel:988" className="text-sage-600 hover:text-sage-700 font-medium">
             988 (Suicide Prevention)
           </a>
-          <span className="text-amber-400">|</span>
-          <a href="tel:1-800-944-4773" className="text-amber-700 hover:text-amber-900">
+          <span className="text-earth-300">|</span>
+          <a href="tel:1-800-944-4773" className="text-sage-600 hover:text-sage-700 font-medium">
             1-800-944-4773 (Postpartum Support)
           </a>
         </div>
@@ -52,12 +52,12 @@ export default function CrisisResources({ variant = 'full', showToggle = false }
 
   if (variant === 'compact') {
     return (
-      <div className="bg-amber-50 rounded-lg p-3 border border-amber-200">
-        <div className="flex items-center gap-2 text-sm">
-          <span>💛</span>
-          <span className="text-amber-800">
-            Need help? <a href="tel:988" className="font-semibold underline">Call 988</a> or{' '}
-            <a href="tel:1-800-944-4773" className="font-semibold underline">1-800-944-4773</a>
+      <div className="bg-peach-50 rounded-2xl p-4 border border-peach-200 shadow-soft">
+        <div className="flex items-center gap-3 text-sm">
+          <span className="text-xl">💛</span>
+          <span className="text-earth-700">
+            Need help? <a href="tel:988" className="font-semibold text-sage-600 hover:text-sage-700 underline">Call 988</a> or{' '}
+            <a href="tel:1-800-944-4773" className="font-semibold text-sage-600 hover:text-sage-700 underline">1-800-944-4773</a>
           </span>
         </div>
       </div>
@@ -65,18 +65,18 @@ export default function CrisisResources({ variant = 'full', showToggle = false }
   }
 
   return (
-    <div className="bg-amber-50 rounded-xl border border-amber-200 overflow-hidden">
+    <div className="bg-peach-50 rounded-3xl border border-peach-200 overflow-hidden shadow-soft">
       {showToggle && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-amber-100 transition-smooth"
+          className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-peach-100 transition-smooth"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="text-xl">💛</span>
-            <span className="font-medium text-amber-800">Crisis Resources</span>
+            <span className="font-semibold text-earth-700">Crisis Resources</span>
           </div>
           <svg 
-            className={`w-5 h-5 text-amber-600 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-sage-600 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
             fill="none" 
             viewBox="0 0 24 24" 
             stroke="currentColor"
@@ -87,24 +87,24 @@ export default function CrisisResources({ variant = 'full', showToggle = false }
       )}
       
       {isExpanded && (
-        <div className={`p-4 ${showToggle ? 'pt-0' : ''}`}>
+        <div className={`p-5 ${showToggle ? 'pt-0' : ''}`}>
           {!showToggle && (
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-3 mb-4">
               <span className="text-xl">💛</span>
-              <span className="font-medium text-amber-800">Need Immediate Support?</span>
+              <span className="font-semibold text-earth-700">Need Immediate Support?</span>
             </div>
           )}
-          <p className="text-sm text-amber-700 mb-4">
+          <p className="text-sm text-earth-600 mb-5">
             If you&apos;re in crisis or having thoughts of harming yourself, please reach out:
           </p>
           <div className="space-y-3">
             {RESOURCES.map((resource, i) => (
-              <div key={i} className="flex items-start gap-3 bg-white rounded-lg p-3">
-                <span className="text-lg">📞</span>
+              <div key={i} className="flex items-start gap-4 bg-white rounded-2xl p-4 shadow-soft">
+                <span className="text-xl">📞</span>
                 <div>
-                  <p className="font-medium text-gray-800 text-sm">{resource.name}</p>
-                  <p className="text-bloom-600 font-semibold">{resource.number}</p>
-                  <p className="text-xs text-gray-500">{resource.description}</p>
+                  <p className="font-semibold text-earth-700 text-sm mb-1">{resource.name}</p>
+                  <p className="text-sage-600 font-bold text-base">{resource.number}</p>
+                  <p className="text-xs text-earth-500 mt-1">{resource.description}</p>
                 </div>
               </div>
             ))}

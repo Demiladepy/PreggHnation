@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Logo from './Logo'
 
 export default function Navigation() {
   const pathname = usePathname()
@@ -16,12 +17,17 @@ export default function Navigation() {
   ]
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-100">
+    <nav className="bg-white/95 backdrop-blur-sm shadow-soft border-b border-earth-100">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">🌸</span>
-            <span className="font-semibold text-bloom-700 hidden sm:inline">BloomPath</span>
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="group-hover:bg-sage-200 transition-smooth">
+              <Logo size="md" />
+            </div>
+            <div className="hidden sm:block">
+              <span className="font-bold text-earth-700 text-lg">BLOOMPATH</span>
+              <span className="block text-xs text-earth-500 font-normal">Wellness Companion</span>
+            </div>
           </Link>
 
           <div className="flex items-center gap-1 sm:gap-2">
@@ -29,14 +35,14 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-smooth ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-smooth ${
                   pathname === link.href
-                    ? 'bg-bloom-100 text-bloom-700'
-                    : 'text-gray-600 hover:bg-gray-100'
+                    ? 'bg-sage-100 text-sage-700 shadow-soft'
+                    : 'text-earth-600 hover:bg-cream-50'
                 }`}
               >
-                <span>{link.icon}</span>
-                <span className="hidden sm:inline">{link.label}</span>
+                <span className="text-base">{link.icon}</span>
+                <span className="hidden md:inline">{link.label}</span>
               </Link>
             ))}
           </div>

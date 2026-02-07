@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { submitMood, MoodEntry } from '@/lib/api'
 import VoiceInput from '@/components/VoiceInput'
+import Logo from '@/components/Logo'
 
 const MOOD_EMOJIS = [
   { score: 1, emoji: '😢', label: 'Very Low' },
@@ -101,39 +102,39 @@ export default function MoodPage() {
 
   if (submitted && result) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] p-4 md:p-8">
+      <div className="min-h-[calc(100vh-4rem)] p-4 md:p-8 bg-cream-50">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-            <div className="text-center mb-6">
-              <div className="text-5xl mb-4">
+          <div className="bg-white rounded-3xl shadow-medium p-8 md:p-10">
+            <div className="text-center mb-8">
+              <div className="text-6xl mb-5">
                 {MOOD_EMOJIS.find(m => m.score === result.score)?.emoji}
               </div>
-              <h2 className="text-xl font-semibold text-gray-800">
+              <h2 className="text-2xl md:text-3xl font-bold text-earth-700">
                 Thanks for checking in!
               </h2>
             </div>
 
             {/* AI Insight */}
-            <div className="bg-gradient-to-r from-bloom-50 to-sage-50 rounded-xl p-5 mb-6">
-              <div className="flex items-start gap-3">
-                <span className="text-2xl">🌸</span>
+            <div className="bg-gradient-to-br from-sage-50 to-cream-50 rounded-2xl p-6 mb-8 border border-sage-100 shadow-soft">
+              <div className="flex items-start gap-4">
+                <Logo size="md" />
                 <div>
-                  <p className="text-sm font-medium text-bloom-700 mb-2">BloomPath says:</p>
-                  <p className="text-gray-700">{result.aiInsight}</p>
+                  <p className="text-sm font-bold text-sage-700 mb-2 uppercase tracking-wide">BloomPath says:</p>
+                  <p className="text-earth-700 leading-relaxed">{result.aiInsight}</p>
                 </div>
               </div>
             </div>
 
             {/* Summary */}
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-500 mb-2">Your feelings today:</h3>
+            <div className="mb-8">
+              <h3 className="text-sm font-bold text-earth-600 mb-4 uppercase tracking-wide">Your feelings today:</h3>
               <div className="flex flex-wrap gap-2">
                 {result.emotions.map((emotion) => {
                   const emotionData = EMOTIONS.find(e => e.id === emotion)
                   return (
                     <span
                       key={emotion}
-                      className={`px-3 py-1 rounded-full text-sm border ${emotionData?.color || 'bg-gray-100'}`}
+                      className={`px-4 py-2 rounded-full text-sm border-2 font-medium shadow-soft ${emotionData?.color || 'bg-cream-100 border-earth-100 text-earth-700'}`}
                     >
                       {emotionData?.label || emotion}
                     </span>
@@ -143,9 +144,9 @@ export default function MoodPage() {
             </div>
 
             {result.notes && (
-              <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Your notes:</h3>
-                <p className="text-gray-700 bg-gray-50 rounded-lg p-3 text-sm">
+              <div className="mb-8">
+                <h3 className="text-sm font-bold text-earth-600 mb-3 uppercase tracking-wide">Your notes:</h3>
+                <p className="text-earth-700 bg-cream-50 rounded-2xl p-4 text-sm leading-relaxed border border-earth-100">
                   {result.notes}
                 </p>
               </div>
@@ -154,13 +155,13 @@ export default function MoodPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={resetForm}
-                className="flex-1 px-4 py-3 border border-gray-200 rounded-xl text-gray-700 hover:bg-gray-50 transition-smooth"
+                className="flex-1 px-6 py-4 border-2 border-earth-200 rounded-2xl text-earth-700 hover:bg-cream-50 transition-smooth font-semibold shadow-soft"
               >
                 Log Another Entry
               </button>
               <a
                 href="/insights"
-                className="flex-1 px-4 py-3 bg-bloom-500 text-white rounded-xl text-center hover:bg-bloom-600 transition-smooth"
+                className="flex-1 px-6 py-4 bg-sage-400 text-white rounded-2xl text-center hover:bg-sage-500 transition-smooth font-semibold shadow-medium"
               >
                 View Insights
               </a>
@@ -172,34 +173,34 @@ export default function MoodPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] p-4 md:p-8">
+    <div className="min-h-[calc(100vh-4rem)] p-4 md:p-8 bg-cream-50">
       <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Daily Check-in</h1>
-          <p className="text-gray-600">How are you feeling right now?</p>
+        <div className="text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold text-earth-700 mb-3">Daily Check-in</h1>
+          <p className="text-lg text-earth-600">How are you feeling right now?</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-8">
+        <div className="bg-white rounded-3xl shadow-medium p-6 md:p-10 space-y-10">
           {/* Mood Score */}
           <div>
-            <h2 className="text-lg font-medium text-gray-700 mb-4">Overall Mood</h2>
-            <div className="flex justify-between gap-2">
+            <h2 className="text-xl font-bold text-earth-700 mb-6">Overall Mood</h2>
+            <div className="flex justify-between gap-3">
               {MOOD_EMOJIS.map(({ score, emoji, label }) => (
                 <button
                   key={score}
                   onClick={() => setSelectedScore(score)}
-                  className={`flex-1 flex flex-col items-center gap-2 p-3 rounded-xl transition-smooth border-2 ${
+                  className={`flex-1 flex flex-col items-center gap-3 p-4 rounded-2xl transition-smooth border-2 ${
                     selectedScore === score
-                      ? 'border-bloom-400 bg-bloom-50'
-                      : 'border-transparent hover:bg-gray-50'
+                      ? 'border-sage-400 bg-sage-50 shadow-soft'
+                      : 'border-earth-100 hover:bg-cream-50 hover:border-earth-200'
                   }`}
                 >
-                  <span className={`text-3xl md:text-4xl transition-transform ${
+                  <span className={`text-4xl md:text-5xl transition-transform ${
                     selectedScore === score ? 'scale-110' : ''
                   }`}>
                     {emoji}
                   </span>
-                  <span className="text-xs text-gray-600 hidden sm:block">{label}</span>
+                  <span className="text-xs text-earth-600 font-medium hidden sm:block">{label}</span>
                 </button>
               ))}
             </div>
@@ -207,19 +208,19 @@ export default function MoodPage() {
 
           {/* Emotions */}
           <div>
-            <h2 className="text-lg font-medium text-gray-700 mb-4">
+            <h2 className="text-xl font-bold text-earth-700 mb-2">
               What emotions are you experiencing?
-              <span className="text-sm font-normal text-gray-500 ml-2">(select all that apply)</span>
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <p className="text-sm text-earth-500 mb-6">(select all that apply)</p>
+            <div className="flex flex-wrap gap-3">
               {EMOTIONS.map(({ id, label, color }) => (
                 <button
                   key={id}
                   onClick={() => toggleEmotion(id)}
-                  className={`px-4 py-2 rounded-full text-sm border-2 transition-smooth ${
+                  className={`px-5 py-2.5 rounded-full text-sm border-2 transition-smooth font-medium shadow-soft ${
                     selectedEmotions.includes(id)
-                      ? `${color} border-current`
-                      : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
+                      ? `${color} border-current shadow-medium`
+                      : 'bg-cream-50 border-earth-100 text-earth-700 hover:border-earth-200 hover:bg-white'
                   }`}
                 >
                   {label}
@@ -230,19 +231,19 @@ export default function MoodPage() {
 
           {/* Notes */}
           <div>
-            <h2 className="text-lg font-medium text-gray-700 mb-4">
+            <h2 className="text-xl font-bold text-earth-700 mb-2">
               Anything else on your mind?
-              <span className="text-sm font-normal text-gray-500 ml-2">(optional)</span>
             </h2>
+            <p className="text-sm text-earth-500 mb-4">(optional)</p>
             <div className="relative">
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Write a few thoughts if you'd like... Or use voice input."
-                className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 focus:border-bloom-400 focus:ring-2 focus:ring-bloom-200 outline-none resize-none transition-smooth"
+                className="w-full px-5 py-4 pr-14 rounded-2xl border-2 border-earth-100 focus:border-sage-400 focus:ring-2 focus:ring-sage-200 outline-none resize-none transition-smooth bg-cream-50 text-earth-700"
                 rows={4}
               />
-              <div className="absolute bottom-3 right-3">
+              <div className="absolute bottom-4 right-4">
                 <VoiceInput
                   onTranscript={(text) => {
                     setNotes(prev => prev ? `${prev} ${text}` : text)
@@ -251,7 +252,7 @@ export default function MoodPage() {
                 />
               </div>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-earth-500 mt-3">
               Click the microphone icon to add notes using your voice (Chrome/Edge only)
             </p>
           </div>
@@ -260,7 +261,7 @@ export default function MoodPage() {
           <button
             onClick={handleSubmit}
             disabled={!selectedScore || selectedEmotions.length === 0 || isSubmitting}
-            className="w-full py-4 bg-gradient-to-r from-bloom-500 to-bloom-600 text-white rounded-xl font-medium hover:from-bloom-600 hover:to-bloom-700 transition-smooth disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+            className="w-full py-5 bg-sage-400 text-white rounded-2xl font-semibold hover:bg-sage-500 transition-smooth disabled:opacity-50 disabled:cursor-not-allowed shadow-medium hover:shadow-large text-lg"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">

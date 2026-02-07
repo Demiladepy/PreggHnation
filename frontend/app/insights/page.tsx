@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { getInsights, MoodEntry, MoodStats, getEPDSHistory, EPDSScreening } from '@/lib/api'
 import MoodChart from '@/components/MoodChart'
+import Logo from '@/components/Logo'
 
 interface InsightsData extends MoodStats {
   entries: MoodEntry[]
@@ -248,14 +249,12 @@ export default function InsightsPage() {
         </div>
 
         {/* AI Summary */}
-        <div className="bg-gradient-to-r from-bloom-50 to-sage-50 rounded-2xl p-6 mb-8">
+        <div className="bg-gradient-to-br from-sage-50 to-cream-50 rounded-2xl p-6 mb-8 border border-sage-100 shadow-soft">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-2xl flex-shrink-0">
-              🌸
-            </div>
+            <Logo size="md" />
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">BloomPath Weekly Summary</h3>
-              <p className="text-gray-700 leading-relaxed">{insights?.aiSummary}</p>
+              <h3 className="font-semibold text-earth-700 mb-2">BloomPath Weekly Summary</h3>
+              <p className="text-earth-700 leading-relaxed">{insights?.aiSummary}</p>
             </div>
           </div>
         </div>
