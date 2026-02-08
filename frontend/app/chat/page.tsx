@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { sendMessage, getChatHistory, ChatMessage } from '@/lib/api'
+import { sendMessage, getChatHistory, getTtsAudio, ChatMessage } from '@/lib/api'
 import Logo from '@/components/Logo'
 
 const QUICK_REPLIES = [
@@ -20,6 +20,8 @@ export default function ChatPage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [userName, setUserName] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [playingId, setPlayingId] = useState<string | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     const stored = localStorage.getItem('bloompath_user')
@@ -105,6 +107,37 @@ export default function ChatPage() {
     }
   }
 
+  const handleListen = async (message: ChatMessage) => {
+    if (message.role !== 'assistant' || !message.content.trim()) return
+    if (playingId) {
+      audioRef.current?.pause()
+      setPlayingId(null)
+      if (playingId === message.id) return
+    }
+    setPlayingId(message.id)
+    try {
+      const blob = await getTtsAudio(message.content)
+      if (!blob) {
+        setPlayingId(null)
+        return
+      }
+      const url = URL.createObjectURL(blob)
+      const audio = new Audio(url)
+      audioRef.current = audio
+      audio.onended = () => {
+        URL.revokeObjectURL(url)
+        setPlayingId(null)
+      }
+      audio.onerror = () => {
+        URL.revokeObjectURL(url)
+        setPlayingId(null)
+      }
+      await audio.play()
+    } catch {
+      setPlayingId(null)
+    }
+  }
+
   if (!userId) {
     return (
       <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4">
@@ -146,7 +179,23 @@ export default function ChatPage() {
                     : 'bg-cream-50 shadow-soft rounded-bl-md border border-earth-100'
                 }`}
               >
-                <p className="whitespace-pre-wrap text-sm md:text-base">{message.content}</p>
+                <div className="flex items-start justify-between gap-2">
+                  <p className="whitespace-pre-wrap text-sm md:text-base flex-1">{message.content}</p>
+                  {message.role === 'assistant' && (
+                    <button
+                      type="button"
+                      onClick={() => handleListen(message)}
+                      className="flex-shrink-0 p-1.5 rounded-lg text-earth-500 hover:bg-earth-100 hover:text-earth-700 transition-smooth"
+                      title={playingId === message.id ? 'Stop' : 'Listen'}
+                    >
+                      {playingId === message.id ? (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                      )}
+                    </button>
+                  )}
+                </div>
                 <p className={`text-xs mt-2 ${
                   message.role === 'user' ? 'text-white/70' : 'text-earth-400'
                 }`}>

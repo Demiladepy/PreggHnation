@@ -113,6 +113,8 @@ npm run dev
 DATABASE_URL="file:./dev.db"
 ANTHROPIC_API_KEY="your-anthropic-api-key"
 PORT=3001
+# Optional: ElevenLabs Text-to-Speech for "Listen" on chat messages
+ELEVENLABS_API_KEY="your-elevenlabs-api-key"
 ```
 
 ### Frontend (.env.local)
@@ -135,6 +137,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 | `/api/epds/:userId` | GET | Get EPDS history |
 | `/api/epds/:userId/latest` | GET | Get latest EPDS score |
 | `/api/partner` | POST | Generate partner communication message |
+| `/api/tts` | POST | Text-to-speech (ElevenLabs) for chat Listen |
 | `/api/insights/:userId` | GET | Get weekly insights (includes EPDS data) |
 
 ## Crisis Resources (Displayed In-App)

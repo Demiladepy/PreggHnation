@@ -8,6 +8,7 @@ import insightsRoutes from './routes/insights.js'
 import userRoutes from './routes/user.js'
 import epdsRoutes from './routes/epds.js'
 import partnerRoutes from './routes/partner.js'
+import ttsRoutes from './routes/tts.js'
 
 dotenv.config()
 
@@ -39,6 +40,7 @@ app.use('/api/insights', insightsRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/epds', epdsRoutes)
 app.use('/api/partner', partnerRoutes)
+app.use('/api/tts', ttsRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {

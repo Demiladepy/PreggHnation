@@ -174,3 +174,15 @@ export async function generatePartnerMessage(userId: string, concern: string): P
   
   return response.json()
 }
+
+// Text-to-Speech (ElevenLabs) – returns audio blob or null if not configured
+export async function getTtsAudio(text: string): Promise<Blob | null> {
+  const response = await fetch(`${API_BASE}/api/tts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  })
+  if (response.status === 503) return null // TTS not configured
+  if (!response.ok) return null
+  return response.blob()
+}
